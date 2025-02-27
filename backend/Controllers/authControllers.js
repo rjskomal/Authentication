@@ -1,48 +1,66 @@
 const User = require('../Models/Users');
 const jwt = require('jsonwebtoken');
-const { use } = require('../Routes/authRoutes');
 require('dotenv').config();
 const SECRET = process.env.SECRET;
 
-
 const maxAge = 3 * 24 * 60 * 60;
+
 const createToken = (id) => {
-    return jwt.sign({id},SECRET,{expiresIn: maxAge}
-    );
-}
+    return jwt.sign({ id }, SECRET, { expiresIn: maxAge });
+};
 
 module.exports.signup_get = (req, res) => {
     res.send("Hello from signup_get");
-}
+};
 
 module.exports.login_get = (req, res) => {
+    console.log('in login get', req.cookies.jwt);
     res.send("Hello from login_get");
-}
+};
 
 module.exports.signup_post = async (req, res) => {
-    const {email,username, password} = req.body;
-
+    const { email, username, password } = req.body;
     try {
-        const user = await User.create({email,username, password});
-        const token = createToken(user._id);
-        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-        res.status(201).json({user : user._id});
-        console.log({user : user._id});
-        
-    }
-    catch(err) {
+        const user = await User.create({ email, username, password });
+        res.status(201).json({ user: user._id });
+        console.log({ user: user._id });
+    } catch (err) {
         console.log(err);
         res.status(400).send("Error, user not created");
     }
-}
+};
 
 module.exports.login_post = async (req, res) => {
-    const {email , password} = req.body;
-    try{
+    const { email, password } = req.body;
+    try {
         const user = await User.login(email, password);
-        res.status(200).json({user : user._id});
-    }
-    catch(err){
+        const token = createToken(user._id);
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(200).json({ user: user._id });
+    } catch (err) {
+        console.log(err); // Log the error for debugging
         res.status(400).send("Error, user not found");
     }
-}
+};
+
+module.exports.logout_user = async (req, res) => {
+    res.clearCookie('jwt', { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+    res.status(200).send('Logged out successfully');
+};
+
+module.exports.userDetails = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).send('User not authenticated');
+        }
+
+        const details = await User.findOne({ _id: req.user.id });
+        if (!details) {
+            return res.status(404).send('User not found');
+        }
+
+        res.send(details);
+    } catch (err) {
+        res.status(500).send('Internal Server Error');
+    }
+};

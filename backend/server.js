@@ -5,7 +5,7 @@ const cors = require('cors');
 app.use(
     cors({
       origin: "http://localhost:3000",  // Frontend URL
-      credentials: true,  
+      credentials: true,   
     })
   );
 
@@ -24,7 +24,8 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello from server!' });
 });
 
-mongoose.connect(db, { useNewUrlParser: true })
+
+mongoose.connect(db)
     .then((result) => {
         app.listen(5000 , ()=>{console.log("Connected to MongoDB and Server is running on port 5000")});
 
