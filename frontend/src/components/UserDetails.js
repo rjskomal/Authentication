@@ -26,7 +26,11 @@ function UserDetails() {
 
     return (
         <div>
+            <h1>Welcome to the user details page</h1>
+            <h1>Your username is {userID?.username}</h1>
+            <h1>Your email is {userID?.email}</h1>
             <h1>The user ID is {userID?._id}</h1>
+
             <button className='btn' onClick={handleLogout}>Logout</button>
         </div>
     )
