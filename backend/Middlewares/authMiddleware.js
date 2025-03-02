@@ -20,10 +20,6 @@ const requireAuth = (req, res, next) => {
     else{
         res.redirect('/login');
     }
-
-
-
-    next();
 }
 
 module.exports = {requireAuth};

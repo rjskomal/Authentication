@@ -26,7 +26,7 @@ function UserDetails() {
 
     return (
         <div>
-            <h1>The user ID is {userID}</h1>
+            <h1>The user ID is {userID?._id}</h1>
             <button className='btn' onClick={handleLogout}>Logout</button>
         </div>
     )
