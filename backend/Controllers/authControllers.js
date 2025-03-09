@@ -19,27 +19,39 @@ module.exports.login_get = (req, res) => {
 };
 
 module.exports.signup_post = async (req, res) => {
-    const { email, username, password } = req.body;
+    const { email, username, password, role } = req.body;  
     try {
-        const user = await User.create({ email, username, password });
-        res.status(201).json({ user: user._id });
-        console.log({ user: user._id });
+        const user = await User.create({ 
+            email, 
+            username, 
+            password, 
+            role: role || "user"  
+        });
+
+        res.status(201).json({ user: user._id, role: user.role });
     } catch (err) {
         console.log(err);
-        res.status(400).send("Error, user not created");
+        res.status(400).json({ error: err.message });
     }
 };
+
 
 module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.login(email, password);
         const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json({ user: user._id });
+
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: maxAge * 1000,
+            sameSite: "Lax",
+            secure: process.env.NODE_ENV === "production"
+        });
+
+        res.status(200).json({ user: user._id, role: user.role });
     } catch (err) {
-        console.log(err); // Log the error for debugging
-        res.status(400).send("Error, user not found");
+        res.status(400).json({ error: err.message });
     }
 };
 

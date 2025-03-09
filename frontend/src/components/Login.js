@@ -11,9 +11,16 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/login", { email, password } , { withCredentials: true });
+      const res = await axios.post("http://localhost:5000/login", { email, password }, { withCredentials: true });
+
       toast.success("Login successful!");
-      navigate("/UserDetails");
+
+
+      if (res.data.role === "admin") {
+        navigate("/AdminDashboard");
+      } else {
+        navigate("/UserDetails");
+      }
     } catch (err) {
       toast.error("Login failed: " + (err.response?.data || "Unknown error"));
     }

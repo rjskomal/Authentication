@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserDetails from "./components/UserDetails";
+import AdminDashboard from "./components/AdminDashboard";  
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/UserDetails" element={<UserDetails />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />  
       </Routes>
     </Router>
   );
