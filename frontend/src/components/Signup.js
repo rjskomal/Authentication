@@ -26,18 +26,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
+    <div className="signup-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
-        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
+      <form onSubmit={handleSignup} className="signup-form">
+        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required className="input-field" />
+        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="input-field" />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="input-field" />
+        <select value={role} onChange={(e) => setRole(e.target.value)} className="input-field">
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
-
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="btn">Sign Up</button>
       </form>
     </div>
   );

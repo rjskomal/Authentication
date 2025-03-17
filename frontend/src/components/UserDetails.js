@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -13,25 +12,11 @@ function UserDetails() {
         navigate('/login');
     })
 
-    function handleLogout() {
-        axios.post("http://localhost:5000/logout" ,{}, { withCredentials: true })
-            .then(() => {
-                toast.success("Logged out successfully");
-                navigate("/"); 
-            })
-            .catch(err => {
-                toast.error("Check your code once");
-            });
-    }
-
     return (
         <div>
-            <h1>Welcome to the user details page</h1>
-            <h1>Your username is {userID?.username}</h1>
-            <h1>Your email is {userID?.email}</h1>
-            <h1>The user ID is {userID?._id}</h1>
-
-            <button className='btn' onClick={handleLogout}>Logout</button>
+            
+            <h1>Welcome {userID?.username}</h1>
+            
         </div>
     )
 }

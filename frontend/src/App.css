@@ -1,67 +1,88 @@
-/* Global Styles */
+/* 🔥 Global Styles */
 body {
   background-color: #121212;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
   margin: 0;
+  transition: all 0.3s ease-in-out;
+  overflow: scroll;
+  overflow-y: auto;
 }
 
-/* Container for Forms */
-.container {
+.container, .signup-container { /* combined container styles */
   text-align: center;
   background: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Input Fields */
-.input {
+.container:hover, .signup-container:hover {
+  transform: translateY(-5px);
+}
+
+.input, .input-field { /* combined input styles */
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background: #333;
+  padding: 12px;
+  margin: 12px 0;
+  background: #252525;
   color: white;
   border: 1px solid #444;
-  border-radius: 5px;
+  border-radius: 6px;
   outline: none;
+  transition: border 0.3s ease-in-out;
 }
 
-/* Buttons */
-.btn {
-  background: #007bff;
+.input:focus, .input-field:focus {
+  border: 1px solid #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+.btn, .delete-btn { /* Combined btn styles */
+  background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
-  padding: 10px;
+  padding: 12px;
   border: none;
   width: 100%;
   cursor: pointer;
-  margin-top: 10px;
-  border-radius: 5px;
-  transition: background 0.3s ease-in-out;
+  margin-top: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
 }
 
-.btn:hover {
-  background: #0056b3;
+.btn:hover, .delete-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #004099);
+  transform: scale(1.05);
 }
 
-/* Button Group */
+.delete-btn { /* Overwrite the general btn style to create the delete button style */
+  background: linear-gradient(135deg, red, darkred);
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, darkred, black);
+}
+
 .btn-group {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 20px;
 }
 
-/* Toast Notification Overrides */
 .Toastify__toast {
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 6px;
   text-align: center;
 }
 
@@ -74,29 +95,114 @@ body {
 }
 
 .admin-container {
-  padding: 20px;
+  padding: 25px;
   text-align: center;
+  width: 90%;
+  max-width: 800px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .user-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-.user-table th, .user-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
+.user-table th,
+.user-table td {
+  border: 1px solid #333;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .user-table th {
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  font-weight: bold;
 }
 
-.delete-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px;
+.user-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease-in-out;
+}
+
+.video-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.video-card {
+  width: 300px;
+  padding: 15px;
+  background: #222;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.video-card:hover {
+  transform: scale(1.05);
+}
+
+.video-card video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.like-btn, .flag-btn {
+  padding: 8px 12px;
+  margin: 6px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.like-btn {
+  background: linear-gradient(135deg, red, darkred);
+  color: white;
+}
+
+.like-btn:hover {
+  background: linear-gradient(135deg, #218838, #155724);
+  transform: scale(1.1);
+}
+
+.flag-btn {
+  background: linear-gradient(135deg);
+  color: black;
+}
+
+.flag-btn:hover {
+  background: linear-gradient(135deg, red, darkred);
+  transform: scale(1.1);
+}
+
+/* 🔘 Responsive Styles */
+@media screen and (max-width: 768px) {
+  .container, .signup-container {
+    width: 90%;
+  }
+
+  .user-table th, .user-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .admin-container {
+    width: 95%;
+  }
+
+  .video-card {
+    width: 90%;
+  }
 }
